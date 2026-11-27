@@ -1,0 +1,802 @@
+[
+  {
+    "title": "Binary Search",
+    "tags": "binarySearch",
+    "difficulty": "easy",
+    "description": "Given a strictly increasing array, return the zero-based index of k, or -1 if absent.\n\nInput: n on the first line, n space-separated integers on the second line, and k on the third line. Output: one integer. If k is unused, supply 0. Unless specified otherwise, 1 <= n <= 1000 and -10000 <= a[i] <= 10000.",
+    "visibleTestCases": [
+      {
+        "input": "4\n1 3 5 7\n5",
+        "output": "2",
+        "explanation": "The expected result for this input is 2."
+      },
+      {
+        "input": "1\n1\n1",
+        "output": "0",
+        "explanation": "The expected result for this input is 0."
+      },
+      {
+        "input": "2\n2 4\n3",
+        "output": "-1",
+        "explanation": "The expected result for this input is -1."
+      }
+    ],
+    "hiddenTestCases": [
+      {
+        "input": "3\n-5 -2 0\n-5",
+        "output": "0"
+      },
+      {
+        "input": "3\n1 2 3\n3",
+        "output": "2"
+      },
+      {
+        "input": "1\n1\n0",
+        "output": "-1"
+      },
+      {
+        "input": "3\n2 4 6\n8",
+        "output": "-1"
+      },
+      {
+        "input": "3\n-3 0 4\n0",
+        "output": "1"
+      }
+    ],
+    "startCode": [
+      {
+        "language": "C++",
+        "initialCode": "int solve(vector<int>& a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "C",
+        "initialCode": "int solve(int* a, int n, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Java",
+        "initialCode": "static int solve(int[] a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Python",
+        "initialCode": "def solve(a, k):\n    pass"
+      }
+    ],
+    "referenceSolution": [
+      {
+        "language": "C++",
+        "completeCode": "int solve(vector<int>& a, int k) {\nint l=0,r=a.size()-1;while(l<=r){int m=l+(r-l)/2;if(a[m]==k)return m;if(a[m]<k)l=m+1;else r=m-1;}return -1;\n}"
+      },
+      {
+        "language": "C",
+        "completeCode": "int solve(int* a, int n, int k) {\nint l=0,r=n-1;while(l<=r){int m=l+(r-l)/2;if(a[m]==k)return m;if(a[m]<k)l=m+1;else r=m-1;}return -1;\n}"
+      },
+      {
+        "language": "Java",
+        "completeCode": "static int solve(int[] a, int k) {\nint l=0,r=a.length-1;while(l<=r){int m=l+(r-l)/2;if(a[m]==k)return m;if(a[m]<k)l=m+1;else r=m-1;}return -1;\n}"
+      },
+      {
+        "language": "Python",
+        "completeCode": "def solve(a, k):\n    l,r=0,len(a)-1\n    while l<=r:\n        m=(l+r)//2\n        if a[m]==k: return m\n        if a[m]<k: l=m+1\n        else: r=m-1\n    return -1"
+      }
+    ],
+    "driverCode": [
+      {
+        "language": "C++",
+        "template": "#include <bits/stdc++.h>\nusing namespace std;\n{{SOLUTION}}\nint main(){int n,k;cin>>n;vector<int>a(n);for(int &x:a)cin>>x;cin>>k;cout<<solve(a,k)<<\"\\n\";}"
+      },
+      {
+        "language": "C",
+        "template": "#include <stdio.h>\n#include <stdlib.h>\n{{SOLUTION}}\nint main(void){int n,k;scanf(\"%d\",&n);int *a=malloc(n*sizeof(int));for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);scanf(\"%d\",&k);printf(\"%d\\n\",solve(a,n,k));free(a);return 0;}"
+      },
+      {
+        "language": "Java",
+        "template": "import java.util.*;\npublic class Main {\n{{SOLUTION}}\npublic static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();int[] a=new int[n];for(int i=0;i<n;i++)a[i]=s.nextInt();int k=s.nextInt();System.out.println(solve(a,k));}\n}"
+      },
+      {
+        "language": "Python",
+        "template": "{{SOLUTION}}\nif __name__ == \"__main__\":\n    n=int(input())\n    a=list(map(int,input().split()))\n    k=int(input())\n    print(solve(a,k))"
+      }
+    ],
+    "editorial": "Halve the sorted search interval at each step. Time O(log n), extra space O(1)."
+  },
+  {
+    "title": "Maximum Subarray",
+    "tags": "array",
+    "difficulty": "medium",
+    "description": "Return the maximum sum of a nonempty contiguous subarray. k is unused.\n\nInput: n on the first line, n space-separated integers on the second line, and k on the third line. Output: one integer. If k is unused, supply 0. Unless specified otherwise, 1 <= n <= 1000 and -10000 <= a[i] <= 10000.",
+    "visibleTestCases": [
+      {
+        "input": "9\n-2 1 -3 4 -1 2 1 -5 4\n0",
+        "output": "6",
+        "explanation": "The expected result for this input is 6."
+      },
+      {
+        "input": "1\n-5\n0",
+        "output": "-5",
+        "explanation": "The expected result for this input is -5."
+      },
+      {
+        "input": "3\n1 2 3\n0",
+        "output": "6",
+        "explanation": "The expected result for this input is 6."
+      }
+    ],
+    "hiddenTestCases": [
+      {
+        "input": "3\n-3 -2 -8\n0",
+        "output": "-2"
+      },
+      {
+        "input": "1\n0\n0",
+        "output": "0"
+      },
+      {
+        "input": "3\n5 -10 6\n0",
+        "output": "6"
+      },
+      {
+        "input": "3\n2 -1 2\n0",
+        "output": "3"
+      },
+      {
+        "input": "3\n-1 0 -1\n0",
+        "output": "0"
+      }
+    ],
+    "startCode": [
+      {
+        "language": "C++",
+        "initialCode": "int solve(vector<int>& a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "C",
+        "initialCode": "int solve(int* a, int n, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Java",
+        "initialCode": "static int solve(int[] a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Python",
+        "initialCode": "def solve(a, k):\n    pass"
+      }
+    ],
+    "referenceSolution": [
+      {
+        "language": "C++",
+        "completeCode": "int solve(vector<int>& a, int k) {\nint cur=a[0],best=cur;for(int i=1;i<a.size();i++){cur=max(a[i],cur+a[i]);best=max(best,cur);}return best;\n}"
+      },
+      {
+        "language": "C",
+        "completeCode": "int solve(int* a, int n, int k) {\nint cur=a[0],best=cur;for(int i=1;i<n;i++){cur=cur+a[i]>a[i]?cur+a[i]:a[i];if(cur>best)best=cur;}return best;\n}"
+      },
+      {
+        "language": "Java",
+        "completeCode": "static int solve(int[] a, int k) {\nint cur=a[0],best=cur;for(int i=1;i<a.length;i++){cur=Math.max(a[i],cur+a[i]);best=Math.max(best,cur);}return best;\n}"
+      },
+      {
+        "language": "Python",
+        "completeCode": "def solve(a, k):\n    cur=best=a[0]\n    for x in a[1:]:\n        cur=max(x,cur+x)\n        best=max(best,cur)\n    return best"
+      }
+    ],
+    "driverCode": [
+      {
+        "language": "C++",
+        "template": "#include <bits/stdc++.h>\nusing namespace std;\n{{SOLUTION}}\nint main(){int n,k;cin>>n;vector<int>a(n);for(int &x:a)cin>>x;cin>>k;cout<<solve(a,k)<<\"\\n\";}"
+      },
+      {
+        "language": "C",
+        "template": "#include <stdio.h>\n#include <stdlib.h>\n{{SOLUTION}}\nint main(void){int n,k;scanf(\"%d\",&n);int *a=malloc(n*sizeof(int));for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);scanf(\"%d\",&k);printf(\"%d\\n\",solve(a,n,k));free(a);return 0;}"
+      },
+      {
+        "language": "Java",
+        "template": "import java.util.*;\npublic class Main {\n{{SOLUTION}}\npublic static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();int[] a=new int[n];for(int i=0;i<n;i++)a[i]=s.nextInt();int k=s.nextInt();System.out.println(solve(a,k));}\n}"
+      },
+      {
+        "language": "Python",
+        "template": "{{SOLUTION}}\nif __name__ == \"__main__\":\n    n=int(input())\n    a=list(map(int,input().split()))\n    k=int(input())\n    print(solve(a,k))"
+      }
+    ],
+    "editorial": "Kadane’s algorithm: either extend the previous subarray or start at the current element. O(n) time, O(1) extra space (Python can iterate by index to avoid a slice)."
+  },
+  {
+    "title": "Trapping Rain Water",
+    "tags": "twoPointers",
+    "difficulty": "hard",
+    "description": "Given nonnegative bar heights, return the total trapped water. k is unused.\n\nInput: n on the first line, n space-separated integers on the second line, and k on the third line. Output: one integer. If k is unused, supply 0. Unless specified otherwise, 1 <= n <= 1000 and -10000 <= a[i] <= 10000.",
+    "visibleTestCases": [
+      {
+        "input": "4\n0 1 0 2\n0",
+        "output": "1",
+        "explanation": "The expected result for this input is 1."
+      },
+      {
+        "input": "6\n4 2 0 3 2 5\n0",
+        "output": "9",
+        "explanation": "The expected result for this input is 9."
+      },
+      {
+        "input": "3\n1 2 3\n0",
+        "output": "0",
+        "explanation": "The expected result for this input is 0."
+      }
+    ],
+    "hiddenTestCases": [
+      {
+        "input": "3\n3 0 3\n0",
+        "output": "3"
+      },
+      {
+        "input": "1\n0\n0",
+        "output": "0"
+      },
+      {
+        "input": "3\n2 2 2\n0",
+        "output": "0"
+      },
+      {
+        "input": "5\n5 1 2 1 5\n0",
+        "output": "11"
+      },
+      {
+        "input": "3\n3 2 1\n0",
+        "output": "0"
+      }
+    ],
+    "startCode": [
+      {
+        "language": "C++",
+        "initialCode": "int solve(vector<int>& a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "C",
+        "initialCode": "int solve(int* a, int n, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Java",
+        "initialCode": "static int solve(int[] a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Python",
+        "initialCode": "def solve(a, k):\n    pass"
+      }
+    ],
+    "referenceSolution": [
+      {
+        "language": "C++",
+        "completeCode": "int solve(vector<int>& a, int k) {\nint l=0,r=a.size()-1,L=0,R=0,w=0;while(l<=r){if(a[l]<=a[r]){L=max(L,a[l]);w+=L-a[l++];}else{R=max(R,a[r]);w+=R-a[r--];}}return w;\n}"
+      },
+      {
+        "language": "C",
+        "completeCode": "int solve(int* a, int n, int k) {\nint l=0,r=n-1,L=0,R=0,w=0;while(l<=r){if(a[l]<=a[r]){if(a[l]>L)L=a[l];w+=L-a[l++];}else{if(a[r]>R)R=a[r];w+=R-a[r--];}}return w;\n}"
+      },
+      {
+        "language": "Java",
+        "completeCode": "static int solve(int[] a, int k) {\nint l=0,r=a.length-1,L=0,R=0,w=0;while(l<=r){if(a[l]<=a[r]){L=Math.max(L,a[l]);w+=L-a[l++];}else{R=Math.max(R,a[r]);w+=R-a[r--];}}return w;\n}"
+      },
+      {
+        "language": "Python",
+        "completeCode": "def solve(a, k):\n    l,r=0,len(a)-1\n    L=R=w=0\n    while l<=r:\n        if a[l]<=a[r]:\n            L=max(L,a[l]); w+=L-a[l]; l+=1\n        else:\n            R=max(R,a[r]); w+=R-a[r]; r-=1\n    return w"
+      }
+    ],
+    "driverCode": [
+      {
+        "language": "C++",
+        "template": "#include <bits/stdc++.h>\nusing namespace std;\n{{SOLUTION}}\nint main(){int n,k;cin>>n;vector<int>a(n);for(int &x:a)cin>>x;cin>>k;cout<<solve(a,k)<<\"\\n\";}"
+      },
+      {
+        "language": "C",
+        "template": "#include <stdio.h>\n#include <stdlib.h>\n{{SOLUTION}}\nint main(void){int n,k;scanf(\"%d\",&n);int *a=malloc(n*sizeof(int));for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);scanf(\"%d\",&k);printf(\"%d\\n\",solve(a,n,k));free(a);return 0;}"
+      },
+      {
+        "language": "Java",
+        "template": "import java.util.*;\npublic class Main {\n{{SOLUTION}}\npublic static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();int[] a=new int[n];for(int i=0;i<n;i++)a[i]=s.nextInt();int k=s.nextInt();System.out.println(solve(a,k));}\n}"
+      },
+      {
+        "language": "Python",
+        "template": "{{SOLUTION}}\nif __name__ == \"__main__\":\n    n=int(input())\n    a=list(map(int,input().split()))\n    k=int(input())\n    print(solve(a,k))"
+      }
+    ],
+    "editorial": "Process the lower boundary first, tracking the maximum height on each side. O(n) time and O(1) space."
+  },
+  {
+    "title": "Coin Change",
+    "tags": "dp",
+    "difficulty": "medium",
+    "description": "Given positive coin denominations and amount k (0 <= k <= 1000), return the minimum number of coins needed, or -1 if impossible. Coins may be reused.\n\nInput: n on the first line, n space-separated integers on the second line, and k on the third line. Output: one integer. If k is unused, supply 0. Unless specified otherwise, 1 <= n <= 1000 and -10000 <= a[i] <= 10000.",
+    "visibleTestCases": [
+      {
+        "input": "3\n1 2 5\n11",
+        "output": "3",
+        "explanation": "The expected result for this input is 3."
+      },
+      {
+        "input": "1\n2\n3",
+        "output": "-1",
+        "explanation": "The expected result for this input is -1."
+      },
+      {
+        "input": "1\n1\n0",
+        "output": "0",
+        "explanation": "The expected result for this input is 0."
+      }
+    ],
+    "hiddenTestCases": [
+      {
+        "input": "2\n2 3\n7",
+        "output": "3"
+      },
+      {
+        "input": "1\n5\n10",
+        "output": "2"
+      },
+      {
+        "input": "2\n4 6\n5",
+        "output": "-1"
+      },
+      {
+        "input": "3\n1 3 4\n6",
+        "output": "2"
+      },
+      {
+        "input": "1\n7\n7",
+        "output": "1"
+      }
+    ],
+    "startCode": [
+      {
+        "language": "C++",
+        "initialCode": "int solve(vector<int>& a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "C",
+        "initialCode": "int solve(int* a, int n, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Java",
+        "initialCode": "static int solve(int[] a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Python",
+        "initialCode": "def solve(a, k):\n    pass"
+      }
+    ],
+    "referenceSolution": [
+      {
+        "language": "C++",
+        "completeCode": "int solve(vector<int>& a, int k) {\nvector<int>d(k+1,k+1);d[0]=0;for(int i=1;i<=k;i++)for(int x:a)if(x<=i)d[i]=min(d[i],d[i-x]+1);return d[k]>k?-1:d[k];\n}"
+      },
+      {
+        "language": "C",
+        "completeCode": "int solve(int* a, int n, int k) {\nint d[1001];d[0]=0;for(int i=1;i<=k;i++){d[i]=k+1;for(int j=0;j<n;j++)if(a[j]<=i&&d[i-a[j]]+1<d[i])d[i]=d[i-a[j]]+1;}return d[k]>k?-1:d[k];\n}"
+      },
+      {
+        "language": "Java",
+        "completeCode": "static int solve(int[] a, int k) {\nint[] d=new int[k+1];Arrays.fill(d,k+1);d[0]=0;for(int i=1;i<=k;i++)for(int x:a)if(x<=i)d[i]=Math.min(d[i],d[i-x]+1);return d[k]>k?-1:d[k];\n}"
+      },
+      {
+        "language": "Python",
+        "completeCode": "def solve(a, k):\n    d=[0]+[k+1]*k\n    for i in range(1,k+1):\n        for x in a:\n            if x<=i: d[i]=min(d[i],d[i-x]+1)\n    return -1 if d[k]>k else d[k]"
+      }
+    ],
+    "driverCode": [
+      {
+        "language": "C++",
+        "template": "#include <bits/stdc++.h>\nusing namespace std;\n{{SOLUTION}}\nint main(){int n,k;cin>>n;vector<int>a(n);for(int &x:a)cin>>x;cin>>k;cout<<solve(a,k)<<\"\\n\";}"
+      },
+      {
+        "language": "C",
+        "template": "#include <stdio.h>\n#include <stdlib.h>\n{{SOLUTION}}\nint main(void){int n,k;scanf(\"%d\",&n);int *a=malloc(n*sizeof(int));for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);scanf(\"%d\",&k);printf(\"%d\\n\",solve(a,n,k));free(a);return 0;}"
+      },
+      {
+        "language": "Java",
+        "template": "import java.util.*;\npublic class Main {\n{{SOLUTION}}\npublic static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();int[] a=new int[n];for(int i=0;i<n;i++)a[i]=s.nextInt();int k=s.nextInt();System.out.println(solve(a,k));}\n}"
+      },
+      {
+        "language": "Python",
+        "template": "{{SOLUTION}}\nif __name__ == \"__main__\":\n    n=int(input())\n    a=list(map(int,input().split()))\n    k=int(input())\n    print(solve(a,k))"
+      }
+    ],
+    "editorial": "Bottom-up DP: dp[i] is the minimum coins for amount i. O(n*k) time and O(k) space."
+  },
+  {
+    "title": "Contains Duplicate",
+    "tags": "hashing",
+    "difficulty": "easy",
+    "description": "Return 1 if any value occurs twice, otherwise 0. k is unused.\n\nInput: n on the first line, n space-separated integers on the second line, and k on the third line. Output: one integer. If k is unused, supply 0. Unless specified otherwise, 1 <= n <= 1000 and -10000 <= a[i] <= 10000.",
+    "visibleTestCases": [
+      {
+        "input": "3\n1 2 1\n0",
+        "output": "1",
+        "explanation": "The expected result for this input is 1."
+      },
+      {
+        "input": "3\n1 2 3\n0",
+        "output": "0",
+        "explanation": "The expected result for this input is 0."
+      },
+      {
+        "input": "1\n0\n0",
+        "output": "0",
+        "explanation": "The expected result for this input is 0."
+      }
+    ],
+    "hiddenTestCases": [
+      {
+        "input": "2\n-1 -1\n0",
+        "output": "1"
+      },
+      {
+        "input": "2\n0 0\n0",
+        "output": "1"
+      },
+      {
+        "input": "3\n3 2 1\n0",
+        "output": "0"
+      },
+      {
+        "input": "2\n10000 -10000\n0",
+        "output": "0"
+      },
+      {
+        "input": "4\n4 5 6 4\n0",
+        "output": "1"
+      }
+    ],
+    "startCode": [
+      {
+        "language": "C++",
+        "initialCode": "int solve(vector<int>& a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "C",
+        "initialCode": "int solve(int* a, int n, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Java",
+        "initialCode": "static int solve(int[] a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Python",
+        "initialCode": "def solve(a, k):\n    pass"
+      }
+    ],
+    "referenceSolution": [
+      {
+        "language": "C++",
+        "completeCode": "int solve(vector<int>& a, int k) {\nunordered_set<int>s;for(int x:a)if(!s.insert(x).second)return 1;return 0;\n}"
+      },
+      {
+        "language": "C",
+        "completeCode": "int solve(int* a, int n, int k) {\nint seen[20001]={0};for(int i=0;i<n;i++){int x=a[i]+10000;if(seen[x])return 1;seen[x]=1;}return 0;\n}"
+      },
+      {
+        "language": "Java",
+        "completeCode": "static int solve(int[] a, int k) {\nSet<Integer>s=new HashSet<>();for(int x:a)if(!s.add(x))return 1;return 0;\n}"
+      },
+      {
+        "language": "Python",
+        "completeCode": "def solve(a, k):\n    return int(len(set(a))!=len(a))"
+      }
+    ],
+    "driverCode": [
+      {
+        "language": "C++",
+        "template": "#include <bits/stdc++.h>\nusing namespace std;\n{{SOLUTION}}\nint main(){int n,k;cin>>n;vector<int>a(n);for(int &x:a)cin>>x;cin>>k;cout<<solve(a,k)<<\"\\n\";}"
+      },
+      {
+        "language": "C",
+        "template": "#include <stdio.h>\n#include <stdlib.h>\n{{SOLUTION}}\nint main(void){int n,k;scanf(\"%d\",&n);int *a=malloc(n*sizeof(int));for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);scanf(\"%d\",&k);printf(\"%d\\n\",solve(a,n,k));free(a);return 0;}"
+      },
+      {
+        "language": "Java",
+        "template": "import java.util.*;\npublic class Main {\n{{SOLUTION}}\npublic static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();int[] a=new int[n];for(int i=0;i<n;i++)a[i]=s.nextInt();int k=s.nextInt();System.out.println(solve(a,k));}\n}"
+      },
+      {
+        "language": "Python",
+        "template": "{{SOLUTION}}\nif __name__ == \"__main__\":\n    n=int(input())\n    a=list(map(int,input().split()))\n    k=int(input())\n    print(solve(a,k))"
+      }
+    ],
+    "editorial": "Track previously seen values. Hash sets take O(n) expected time and O(n) space; C uses a bounded direct-address table."
+  },
+  {
+    "title": "Longest Unique Window",
+    "tags": "slidingWindow",
+    "difficulty": "medium",
+    "description": "Return the length of the longest contiguous window of distinct integers. k is unused.\n\nInput: n on the first line, n space-separated integers on the second line, and k on the third line. Output: one integer. If k is unused, supply 0. Unless specified otherwise, 1 <= n <= 1000 and -10000 <= a[i] <= 10000.",
+    "visibleTestCases": [
+      {
+        "input": "4\n1 2 1 3\n0",
+        "output": "3",
+        "explanation": "The expected result for this input is 3."
+      },
+      {
+        "input": "3\n2 2 2\n0",
+        "output": "1",
+        "explanation": "The expected result for this input is 1."
+      },
+      {
+        "input": "3\n1 2 3\n0",
+        "output": "3",
+        "explanation": "The expected result for this input is 3."
+      }
+    ],
+    "hiddenTestCases": [
+      {
+        "input": "1\n0\n0",
+        "output": "1"
+      },
+      {
+        "input": "4\n-1 0 -1 2\n0",
+        "output": "3"
+      },
+      {
+        "input": "6\n1 2 3 2 4 5\n0",
+        "output": "4"
+      },
+      {
+        "input": "3\n1 1 2\n0",
+        "output": "2"
+      },
+      {
+        "input": "4\n4 3 4 3\n0",
+        "output": "2"
+      }
+    ],
+    "startCode": [
+      {
+        "language": "C++",
+        "initialCode": "int solve(vector<int>& a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "C",
+        "initialCode": "int solve(int* a, int n, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Java",
+        "initialCode": "static int solve(int[] a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Python",
+        "initialCode": "def solve(a, k):\n    pass"
+      }
+    ],
+    "referenceSolution": [
+      {
+        "language": "C++",
+        "completeCode": "int solve(vector<int>& a, int k) {\nunordered_map<int,int> last;int l=0,b=0;for(int r=0;r<a.size();r++){if(last.count(a[r]))l=max(l,last[a[r]]+1);last[a[r]]=r;b=max(b,r-l+1);}return b;\n}"
+      },
+      {
+        "language": "C",
+        "completeCode": "int solve(int* a, int n, int k) {\nint last[20001]={0},l=0,b=0;for(int r=0;r<n;r++){int x=a[r]+10000;if(last[x]>l)l=last[x];last[x]=r+1;if(r-l+1>b)b=r-l+1;}return b;\n}"
+      },
+      {
+        "language": "Java",
+        "completeCode": "static int solve(int[] a, int k) {\nMap<Integer,Integer> last=new HashMap<>();int l=0,b=0;for(int r=0;r<a.length;r++){l=Math.max(l,last.getOrDefault(a[r],-1)+1);last.put(a[r],r);b=Math.max(b,r-l+1);}return b;\n}"
+      },
+      {
+        "language": "Python",
+        "completeCode": "def solve(a, k):\n    last={}; l=b=0\n    for r,x in enumerate(a):\n        l=max(l,last.get(x,-1)+1)\n        last[x]=r\n        b=max(b,r-l+1)\n    return b"
+      }
+    ],
+    "driverCode": [
+      {
+        "language": "C++",
+        "template": "#include <bits/stdc++.h>\nusing namespace std;\n{{SOLUTION}}\nint main(){int n,k;cin>>n;vector<int>a(n);for(int &x:a)cin>>x;cin>>k;cout<<solve(a,k)<<\"\\n\";}"
+      },
+      {
+        "language": "C",
+        "template": "#include <stdio.h>\n#include <stdlib.h>\n{{SOLUTION}}\nint main(void){int n,k;scanf(\"%d\",&n);int *a=malloc(n*sizeof(int));for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);scanf(\"%d\",&k);printf(\"%d\\n\",solve(a,n,k));free(a);return 0;}"
+      },
+      {
+        "language": "Java",
+        "template": "import java.util.*;\npublic class Main {\n{{SOLUTION}}\npublic static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();int[] a=new int[n];for(int i=0;i<n;i++)a[i]=s.nextInt();int k=s.nextInt();System.out.println(solve(a,k));}\n}"
+      },
+      {
+        "language": "Python",
+        "template": "{{SOLUTION}}\nif __name__ == \"__main__\":\n    n=int(input())\n    a=list(map(int,input().split()))\n    k=int(input())\n    print(solve(a,k))"
+      }
+    ],
+    "editorial": "Sliding window: move the left boundary past the previous occurrence of a repeated value. O(n) expected time, O(n) space; C uses a bounded table."
+  },
+  {
+    "title": "Next Greater Element Count",
+    "tags": "stacks",
+    "difficulty": "medium",
+    "description": "Count positions that have a strictly greater element somewhere to their right. k is unused.\n\nInput: n on the first line, n space-separated integers on the second line, and k on the third line. Output: one integer. If k is unused, supply 0. Unless specified otherwise, 1 <= n <= 1000 and -10000 <= a[i] <= 10000.",
+    "visibleTestCases": [
+      {
+        "input": "3\n2 1 3\n0",
+        "output": "2",
+        "explanation": "The expected result for this input is 2."
+      },
+      {
+        "input": "3\n3 2 1\n0",
+        "output": "0",
+        "explanation": "The expected result for this input is 0."
+      },
+      {
+        "input": "3\n1 2 3\n0",
+        "output": "2",
+        "explanation": "The expected result for this input is 2."
+      }
+    ],
+    "hiddenTestCases": [
+      {
+        "input": "2\n2 2\n0",
+        "output": "0"
+      },
+      {
+        "input": "1\n0\n0",
+        "output": "0"
+      },
+      {
+        "input": "3\n-3 -1 -2\n0",
+        "output": "1"
+      },
+      {
+        "input": "3\n4 1 4\n0",
+        "output": "1"
+      },
+      {
+        "input": "4\n1 3 2 4\n0",
+        "output": "3"
+      }
+    ],
+    "startCode": [
+      {
+        "language": "C++",
+        "initialCode": "int solve(vector<int>& a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "C",
+        "initialCode": "int solve(int* a, int n, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Java",
+        "initialCode": "static int solve(int[] a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Python",
+        "initialCode": "def solve(a, k):\n    pass"
+      }
+    ],
+    "referenceSolution": [
+      {
+        "language": "C++",
+        "completeCode": "int solve(vector<int>& a, int k) {\nvector<int>s;int b=0;for(int x:a){while(!s.empty()&&s.back()<x){s.pop_back();b++;}s.push_back(x);}return b;\n}"
+      },
+      {
+        "language": "C",
+        "completeCode": "int solve(int* a, int n, int k) {\nint s[1000],top=0,b=0;for(int i=0;i<n;i++){while(top&&s[top-1]<a[i]){top--;b++;}s[top++]=a[i];}return b;\n}"
+      },
+      {
+        "language": "Java",
+        "completeCode": "static int solve(int[] a, int k) {\nDeque<Integer>s=new ArrayDeque<>();int b=0;for(int x:a){while(!s.isEmpty()&&s.peek()<x){s.pop();b++;}s.push(x);}return b;\n}"
+      },
+      {
+        "language": "Python",
+        "completeCode": "def solve(a, k):\n    s=[]; b=0\n    for x in a:\n        while s and s[-1]<x:\n            s.pop(); b+=1\n        s.append(x)\n    return b"
+      }
+    ],
+    "driverCode": [
+      {
+        "language": "C++",
+        "template": "#include <bits/stdc++.h>\nusing namespace std;\n{{SOLUTION}}\nint main(){int n,k;cin>>n;vector<int>a(n);for(int &x:a)cin>>x;cin>>k;cout<<solve(a,k)<<\"\\n\";}"
+      },
+      {
+        "language": "C",
+        "template": "#include <stdio.h>\n#include <stdlib.h>\n{{SOLUTION}}\nint main(void){int n,k;scanf(\"%d\",&n);int *a=malloc(n*sizeof(int));for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);scanf(\"%d\",&k);printf(\"%d\\n\",solve(a,n,k));free(a);return 0;}"
+      },
+      {
+        "language": "Java",
+        "template": "import java.util.*;\npublic class Main {\n{{SOLUTION}}\npublic static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();int[] a=new int[n];for(int i=0;i<n;i++)a[i]=s.nextInt();int k=s.nextInt();System.out.println(solve(a,k));}\n}"
+      },
+      {
+        "language": "Python",
+        "template": "{{SOLUTION}}\nif __name__ == \"__main__\":\n    n=int(input())\n    a=list(map(int,input().split()))\n    k=int(input())\n    print(solve(a,k))"
+      }
+    ],
+    "editorial": "Maintain a decreasing stack; each popped position has found a greater element. O(n) time and O(n) space. A right-to-left maximum also solves this in constant space."
+  },
+  {
+    "title": "Count Target Occurrences",
+    "tags": "array",
+    "difficulty": "easy",
+    "description": "Return the number of occurrences of k in the array.\n\nInput: n on the first line, n space-separated integers on the second line, and k on the third line. Output: one integer. If k is unused, supply 0. Unless specified otherwise, 1 <= n <= 1000 and -10000 <= a[i] <= 10000.",
+    "visibleTestCases": [
+      {
+        "input": "3\n1 2 1\n1",
+        "output": "2",
+        "explanation": "The expected result for this input is 2."
+      },
+      {
+        "input": "1\n1\n2",
+        "output": "0",
+        "explanation": "The expected result for this input is 0."
+      },
+      {
+        "input": "2\n3 3\n3",
+        "output": "2",
+        "explanation": "The expected result for this input is 2."
+      }
+    ],
+    "hiddenTestCases": [
+      {
+        "input": "3\n-1 0 -1\n-1",
+        "output": "2"
+      },
+      {
+        "input": "1\n0\n0",
+        "output": "1"
+      },
+      {
+        "input": "3\n1 2 3\n3",
+        "output": "1"
+      },
+      {
+        "input": "3\n4 4 4\n0",
+        "output": "0"
+      },
+      {
+        "input": "2\n10000 -10000\n10000",
+        "output": "1"
+      }
+    ],
+    "startCode": [
+      {
+        "language": "C++",
+        "initialCode": "int solve(vector<int>& a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "C",
+        "initialCode": "int solve(int* a, int n, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Java",
+        "initialCode": "static int solve(int[] a, int k) {\n    // Write your solution\n}"
+      },
+      {
+        "language": "Python",
+        "initialCode": "def solve(a, k):\n    pass"
+      }
+    ],
+    "referenceSolution": [
+      {
+        "language": "C++",
+        "completeCode": "int solve(vector<int>& a, int k) {\nint b=0;for(int x:a)if(x==k)b++;return b;\n}"
+      },
+      {
+        "language": "C",
+        "completeCode": "int solve(int* a, int n, int k) {\nint b=0;for(int i=0;i<n;i++)if(a[i]==k)b++;return b;\n}"
+      },
+      {
+        "language": "Java",
+        "completeCode": "static int solve(int[] a, int k) {\nint b=0;for(int x:a)if(x==k)b++;return b;\n}"
+      },
+      {
+        "language": "Python",
+        "completeCode": "def solve(a, k):\n    return a.count(k)"
+      }
+    ],
+    "driverCode": [
+      {
+        "language": "C++",
+        "template": "#include <bits/stdc++.h>\nusing namespace std;\n{{SOLUTION}}\nint main(){int n,k;cin>>n;vector<int>a(n);for(int &x:a)cin>>x;cin>>k;cout<<solve(a,k)<<\"\\n\";}"
+      },
+      {
+        "language": "C",
+        "template": "#include <stdio.h>\n#include <stdlib.h>\n{{SOLUTION}}\nint main(void){int n,k;scanf(\"%d\",&n);int *a=malloc(n*sizeof(int));for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);scanf(\"%d\",&k);printf(\"%d\\n\",solve(a,n,k));free(a);return 0;}"
+      },
+      {
+        "language": "Java",
+        "template": "import java.util.*;\npublic class Main {\n{{SOLUTION}}\npublic static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();int[] a=new int[n];for(int i=0;i<n;i++)a[i]=s.nextInt();int k=s.nextInt();System.out.println(solve(a,k));}\n}"
+      },
+      {
+        "language": "Python",
+        "template": "{{SOLUTION}}\nif __name__ == \"__main__\":\n    n=int(input())\n    a=list(map(int,input().split()))\n    k=int(input())\n    print(solve(a,k))"
+      }
+    ],
+    "editorial": "Scan the array and count matching elements. O(n) time, O(1) space."
+  }
+]

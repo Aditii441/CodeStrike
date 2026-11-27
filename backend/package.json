@@ -1,0 +1,32 @@
+{
+  "name": "lc",
+  "version": "1.0.0",
+  "private": true,
+  "license": "ISC",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "setup:db": "node src/setupDb.js",
+    "seed:problems": "node src/seedProblems.js",
+    "ai:check": "node src/checkAi.js",
+    "test": "node tests/judge-mock.cjs && node tests/submission-mock.cjs && node tests/profile-stats.cjs && node tests/recommendations.cjs && node tests/ai-mock.cjs && node tests/admin-register.cjs"
+  },
+  "dependencies": {
+    "@google/genai": "^2.32.0",
+    "axios": "^1.20.0",
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.11.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.9.1",
+    "redis": "^6.2.1",
+    "validator": "^13.15.35"
+  }
+}
